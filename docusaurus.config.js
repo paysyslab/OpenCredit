@@ -2,12 +2,12 @@
 const config = {
   title: 'OpenCredit',
   tagline: 'Smarter Banking. Safer Experience. Seamless Access',
-  url: 'https://paysyslab.github.io',
+  url: 'https://Inshira-Shakeel.github.io',
   baseUrl: '/OpenCredit/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'paysyslab', // Usually your GitHub org/user name.
+  organizationName: 'Inshira-Shakeel', // Usually your GitHub org/user name.
   projectName: 'OpenCredit',
   deploymentBranch: 'gh-pages',
 
