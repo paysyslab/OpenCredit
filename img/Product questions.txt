@@ -1,0 +1,11 @@
+Product questions
+Justify credit score formula
+is grace period for due payments reached?
+what is score credit based amount caps
+default trigger?
+is daily or weekly merchants choice?
+Penalty is from the whole amount or the redusing balance kind
+eefective monthly rate?
+annualized rate?
+grace period would violate the expiry of loan.
+Only tiers can be selected not the range kind of amount?

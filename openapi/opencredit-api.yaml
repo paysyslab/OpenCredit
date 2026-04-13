@@ -1,0 +1,158 @@
+openapi: 3.0.3
+info:
+  title: Open Credit Mobile APIs
+  description: Open Credit LOS APIs
+  version: 1.0.0
+
+servers:
+  - url: https://{baseUrl}
+    variables:
+      baseUrl:
+        default: api.example.com
+
+paths:
+
+  /api/los/v1/authenticate:
+    post:
+      summary: Authenticate User
+      description: Authenticate user and generate access token
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: open-digital
+                password:
+                  type: string
+                  example: O-D#3@!%
+                channel:
+                  type: string
+                  example: OD
+      responses:
+        "200":
+          description: Authentication Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzUxMiJ9...
+                  expiresIn:
+                    type: string
+                    example: "1774711100"
+
+        "400":
+          description: Invalid username or password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: invalid username/pass
+                  data:
+                    type: string
+                    nullable: true
+
+  /api/los/v1/customer/bvs:
+    post:
+      summary: BVS Verification
+      description: Perform customer verification using NADRA BVS
+      tags:
+        - Customer Verification
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                info:
+                  type: object
+                  properties:
+                    channelCode:
+                      type: string
+                      example: OD
+                    txnDateTime:
+                      type: string
+                      format: date-time
+                    rrn:
+                      type: string
+                      example: "123456789012"
+                    stan:
+                      type: string
+                      example: "123456"
+                    traceRef:
+                      type: string
+                      example: 550e8400-e29b-41d4-a716-446655440000
+                customerInfo:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1234567890123"
+                bvsInfo:
+                  type: object
+                  properties:
+                    requestType:
+                      type: string
+                      example: COMPLETE_VERIFICATION
+                    nadraSessionId:
+                      type: string
+                      example: 550e8400-e29b-41d4-a716-446655440000
+                kycInfo:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      attributekey:
+                        type: string
+                        example: KEY_MOTHER_MAIDEN_NAME
+                      attributeValue:
+                        type: string
+                        example: Fatima1
+
+      responses:
+        "200":
+          description: Verification Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      responseCode:
+                        type: string
+                        example: "000"
+                      responseMessage:
+                        type: string
+                        example: Success
+                      traceRef:
+                        type: string
+                        example: 550e8400-e29b-41d4-a716-446655440000
+                  data:
+                    nullable: true
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
